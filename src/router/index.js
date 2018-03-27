@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Calculator from '@/components/calculator.vue';
+import Calculator from '@/components/calculator'
 
 Vue.use(Router)
 
@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'Calculator',
-      component: HelloWorld
+      component: Calculator
     }
   ]
 })
