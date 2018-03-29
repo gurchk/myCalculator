@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Calculator from '@/components/calculator'
+import Calculator from '../components/calculator.vue'
 
 Vue.use(Router)
 

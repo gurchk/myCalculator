@@ -4,25 +4,47 @@ const component = Vue.extend({
   data () {
     return {
       history: [],
-      calcNum: null
+      input: '',
+      allowedChars: [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-', '/', '*', '(', ')' ]
     }
   },
   methods: {
-    setNumber (val) {
-      if (this.calcNum === null) {
-        this.calcNum = val
-      } else {
-        this.calcNum += JSON.stringify(val)
-      }
+    setOperator (op) {
+      this.input += op
     },
-    computed: {
-      disco () {
-        if (this.calcNum === null) {
-          return 0
+    evaluate () {
+      const expression = []
+      for (let i = 0; i < this.input.length; i++) {
+        expression.push(this.input.charAt(i))
+      }
+
+      for (const char of expression) {
+        if (!this.allowedChars.includes(char)) {
+          alert('Dont try anything silly now.. only numbers and operators are allowed')
         } else {
-          return this.calcNum + 10
+          try {
+            const evalResult = eval(this.input)
+            this.input = evalResult
+            console.log('trying..')
+            this.history.push(evalResult)
+            break
+          } catch (error) {
+            console.log(error)
+          }
         }
       }
+    },
+    squareRoot () {
+      this.evaluate()
+      Math.sqrt(Number(this.input))
+    },
+    clear () {
+      this.input = ''
+    }
+  },
+  computed: {
+    isPosetive () {
+      Number(this.input) > -1
     }
   }
 })
