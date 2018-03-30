@@ -12,6 +12,12 @@ const component = Vue.extend({
     setOperator (op) {
       this.input += op
     },
+    unshiftMaxTen (val) {
+      this.history.unshift(val)
+      if (this.history.length >= 11) {
+        this.history.pop()
+      }
+    },
     evaluate () {
       const expression = []
       for (let i = 0; i < this.input.length; i++) {
@@ -26,7 +32,7 @@ const component = Vue.extend({
             const evalResult = eval(this.input)
             this.input = evalResult
             console.log('trying..')
-            this.history.push(evalResult)
+            this.unshiftMaxTen(evalResult)
             break
           } catch (error) {
             console.log(error)
@@ -35,8 +41,15 @@ const component = Vue.extend({
       }
     },
     squareRoot () {
-      this.evaluate()
-      Math.sqrt(Number(this.input))
+      const evalResult = Math.sqrt(Number(this.input))
+      this.input = evalResult
+      this.unshiftMaxTen(evalResult)
+    },
+    pow () {
+      const y = Number(prompt(this.input + ' to the power of: '))
+      const evalResult = Math.pow(Number(this.input), y)
+      this.input = evalResult
+      this.unshiftMaxTen(evalResult)
     },
     clear () {
       this.input = ''
@@ -44,7 +57,7 @@ const component = Vue.extend({
   },
   computed: {
     isPosetive () {
-      Number(this.input) > -1
+      return Number(this.input) > 0
     }
   }
 })
