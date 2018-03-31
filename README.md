@@ -5,7 +5,7 @@
 ## Git page
 ``` bash
 https://gurchk.github.io/myCalculator/#/
-``
+```
 
 ## Build Setup
 
